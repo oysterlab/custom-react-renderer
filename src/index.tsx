@@ -1,19 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from 'react'
+import { Text } from './component'
+import { renderer } from './renderer'
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+const App = () => {
+  return <>
+    <Text color='#00ab00' fontSize={20}>Text</Text>
+    <Text color='#0000ab' fontSize={40}>Text</Text>
+    <Text color='#ab0000' fontSize={80}>Text</Text>
+    <Text color='#00abab' fontSize={100}>Text</Text>
+  </>
+}
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const container = renderer.createContainer(document.getElementById('root'), 0, null, false, null, '', () => {}, null)
+renderer.updateContainer(<App />, container)

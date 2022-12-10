@@ -1,0 +1,1 @@
+export { Text as text } from './Text';
