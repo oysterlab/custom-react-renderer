@@ -18,7 +18,11 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "strictPropertyInitialization": false,
+    "jsx": "react-jsx",
+    "paths": {
+      "@flux-layout": ["./src/flux/flux-layout/src"]
+    }
   },
   "include": [
     "src", "jsx-interfaces.d.ts"

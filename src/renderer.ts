@@ -1,33 +1,64 @@
 import ReactReconciler from "react-reconciler"
-import * as renders from './render'
+
+import * as renders from './common/render'
+import { stripPrefix } from "./flux/helper/stripPrefix";
+
+function renderInstance(type:any, props:any, layer:any) {
+	const { children, ...otherProps } = props
+  const renderer = (renders as any)[stripPrefix(type)]
+  const element = renderer(layer)(otherProps)
+  return element
+}
+
 const hostConfig:ReactReconciler.HostConfig<any,any,any,any,any,any,any,any,any,any,any,any,any> = {
 	supportsMutation: true,
 	supportsPersistence: false,
+	
 	createInstance: function (type: any, props: any, rootContainer: any, hostContext: any, internalHandle: any) {
-		return (renders as any)[type.replace('prism-', '')](props)
+		return renderInstance(type, props, null)
 	},
-	clearContainer(container) {
-
-	},
-	createTextInstance: function (text: string, rootContainer: any, hostContext: any, internalHandle: any) {
+	commitUpdate(instance, updatePayload, type, prevProps, nextProps, internalHandle) {
+		return renderInstance(type, nextProps, instance);
 	},
 	appendChildToContainer(container, child) {
 		container.appendChild(child)
 	},
-	appendInitialChild: function (parentInstance: any, child: any): void {
+	appendChild(parentInstance, child) {
 		parentInstance.appendChild(child)
 	},
-	commitMount(instance, type, props, internalInstanceHandle) {
-		
+	appendInitialChild: function (parentInstance: any, child: any): void {
+		parentInstance.appendChild(child)
+	},  
+	clearContainer(container) {
+		let c = container.firstChild
+		while (c) {
+			container.removeChild(c)
+			c = container.firstChild
+		}
 	},
+	createTextInstance: function (text: string, rootContainer: any, hostContext: any, internalHandle: any) {
+		return text		
+	},
+	commitMount(instance, type, props, internalInstanceHandle) {},
 	finalizeInitialChildren: function (instance: any, type: any, props: any, rootContainer: any, hostContext: any): boolean {
-		return true
+		switch(stripPrefix(type)) {
+			case 'text':
+			case 'layout':
+				return true
+			default:
+				return false
+		}
 	},
 	prepareUpdate: function (instance: any, type: any, oldProps: any, newProps: any, rootContainer: any, hostContext: any) {
-			throw new Error("Function not implemented.")
+		return true
 	},
 	shouldSetTextContent: function (type: any, props: any): boolean {
-		return true
+		switch(stripPrefix(type)) {
+			case 'text':
+				return true
+			default:
+				return false
+		}
 	},
 	getRootHostContext: function (rootContainer: any) {
 		return true
@@ -35,11 +66,11 @@ const hostConfig:ReactReconciler.HostConfig<any,any,any,any,any,any,any,any,any,
 	getChildHostContext: function (parentHostContext: any, type: any, rootContainer: any) {
 		return true
 	},
-	getPublicInstance: function (instance: any) {
-			throw new Error("Function not implemented.")
+	getPublicInstance: (instance:any) => {
+		return instance;
 	},
 	prepareForCommit: function (containerInfo: any): Record<string, any> | null {
-		return null
+		return {}
 	},
 	resetAfterCommit: function (containerInfo: any): void {},
 	preparePortalMount: function (containerInfo: any): void {
