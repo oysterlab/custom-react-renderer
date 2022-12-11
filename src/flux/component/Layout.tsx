@@ -9,10 +9,6 @@ export function Layout(props: LayoutProps) {
 		// subscribe id, if equal id is equal with stream id, then update calculated
 
 		
-
-
-
-
 		// const cal:CalculatedLayout = {
 		// 	width: props.width || 0,
 		// 	height: props.height || 0,
