@@ -1,4 +1,4 @@
-import { Flux$AlignParams, Flux$LayoutTypes, Flux$MarginPolicy, Flux$OmissionRules, Flux$RearrangeRules } from "./flux-layout/src/Enums";
+import { Flux$AlignParams, Flux$LayoutTypes, Flux$MarginPolicy, Flux$OmissionRules, Flux$RearrangeRules } from "@flux-layout";
 
 export interface BaseLayerProps {
 	layerId?: string;
@@ -35,7 +35,7 @@ export interface LayoutProps
 		MinMaxSizeProps,
 		ResizePolicyProps,
 		PaddingProps {
-		
+
 		layoutType?: Flux$LayoutTypes
 		weight?: number
 		itemGap?: number
@@ -52,4 +52,13 @@ export interface LayoutProps
 		marginAreaPolicy?: Flux$MarginPolicy
 
 		children?: React.ReactNode
+}
+
+export interface TextProps 
+	extends BaseLayerProps,
+		SizeProps {
+
+	text?:string
+	color?:string
+	fontSize?:number
 }

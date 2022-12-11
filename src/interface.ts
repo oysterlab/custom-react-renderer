@@ -7,4 +7,5 @@ export interface CalculatedLayout {
 
 export interface BaseRenderObject {
 	calculated: CalculatedLayout|null
+	ref: React.RefObject<any>
 }

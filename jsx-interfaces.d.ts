@@ -1,6 +1,6 @@
 import react from 'react'
-import { TextProps } from './src/common/render/Text'
-import { LayoutProps } from './src/common/render/Layout'
+import { TextProps } from './src/render/Text'
+import { LayoutProps } from './src/render/Layout'
 
 declare global {
 	namespace JSX {

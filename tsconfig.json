@@ -21,7 +21,7 @@
     "strictPropertyInitialization": false,
     "jsx": "react-jsx",
     "paths": {
-      "@flux-layout": ["./src/flux/flux-layout/src"]
+      "@flux-layout": ["./src/flux-layout/src"]
     }
   },
   "include": [

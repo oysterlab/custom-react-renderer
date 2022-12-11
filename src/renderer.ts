@@ -1,10 +1,10 @@
 import ReactReconciler from "react-reconciler"
 
-import * as renders from './common/render'
-import { stripPrefix } from "./flux/helper/stripPrefix";
+import * as renders from './render'
+import { stripPrefix } from "./helper/stripPrefix"
 
 function renderInstance(type:any, props:any, layer:any) {
-	const { children, ...otherProps } = props
+  const { children, ...otherProps } = props
   const renderer = (renders as any)[stripPrefix(type)]
   const element = renderer(layer)(otherProps)
   return element
